@@ -49,7 +49,7 @@ class AlienInvasion:
             self.ship.update()
             
             # Update the bullets position
-            self.bullets.update()
+            self._update_bullets()
             
             # _update_screen helper method
             self._update_screen()
@@ -99,8 +99,10 @@ class AlienInvasion:
     # helper method to fire bullets, p249
     def _fire_bullet(self):
         """ Create a new bullet and add it to the bullets group"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        # limit bullets to bullets_allowed setting
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
          
                 
     # Helper method to update screen
@@ -119,6 +121,17 @@ class AlienInvasion:
                     
         # Make the most recently drawn screen still visible
         pygame.display.flip()
+        
+    # helper method for updating bullets
+    def _update_bullets(self):
+        """ Update the position of the bullets and remove old bullets """
+        # Update bullet position
+        self.bullets.update()
+        
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
 
             
