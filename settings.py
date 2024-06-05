@@ -8,7 +8,7 @@ class Settings:
         """ Initialise the game's settings """
         # Screen settings
         self.screen_width = 1200
-        self.screen_height = 800
+        self.screen_height = 1200
         self.bg_color = (230, 230, 230)
         # ship speed, p241
         self.ship_speed = 1.5
